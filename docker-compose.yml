@@ -1,0 +1,25 @@
+version: '3.5'
+
+services:
+  mongodb:
+    image: mongo:4.1
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - ./data/db:/data/db
+    ports:
+      - 27017:27017
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - mongodb
+    volumes:
+      - .:$HOME/go-example-http-mongodb
+    env_file: .env
+    command: ./go-example-http-mongodb
+
