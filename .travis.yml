@@ -1,0 +1,23 @@
+language: go
+
+go:
+  - 1.12.x
+
+addons:
+  hosts:
+    - mongo
+
+services:
+  - mongodb
+
+env:
+  - GO111MODULE=on
+
+install:
+  - go mod tidy
+  - go install github.com/onsi/ginkgo/ginkgo
+  - export PATH=$PATH:$HOME/gopath/bin
+
+script:
+  - $HOME/gopath/bin/ginkgo -r --randomizeAllSpecs --randomizeSuites --race --failOnPending
+
