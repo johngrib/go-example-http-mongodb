@@ -21,5 +21,9 @@ elif [[ "$1" = "logs" ]]; then
     docker-compose logs
 
     exit;
+elif [[ "$1" = "test" ]]; then
+    ginkgo -r
+
+    exit;
 fi
 
